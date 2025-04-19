@@ -36,7 +36,7 @@ export WANDB_API_KEY=f5115de6923afe0cac4579bff8845e57245d9f8e
 
 
 ls -lh
-wandb login --relogin
+wandb login $WANDB_API_KEY
 # deepspeed --master_port 60000 train_rdpo.py \
 #     --model_name_or_path liuhaotian/llava-v1.6-vicuna-7b \
 #     --data_path "./preference_data/pref_data.json" \
