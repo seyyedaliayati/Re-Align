@@ -3,9 +3,9 @@
 #SBATCH --job-name=RunReAlign
 #SBATCH --time=24:00:00
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --gres=gpu:t4:4
-#SBATCH --mem=12G
+#SBATCH --ntasks-per-node=4
+#SBATCH --gres=gpu:t4:1
+#SBATCH --mem=8G
 #SBATCH --output=logs/%j.log
 
 ml purge
