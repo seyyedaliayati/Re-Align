@@ -3,8 +3,8 @@
 #SBATCH --job-name=RunReAlign
 #SBATCH --time=24:00:00
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=4
-#SBATCH --gres=gpu:rtx:2
+#SBATCH --ntasks-per-node=1
+#SBATCH --gres=gpu:a100:1
 #SBATCH --mem=8G
 #SBATCH --output=logs/%j.log
 
@@ -37,23 +37,23 @@ export WANDB_API_KEY=f5115de6923afe0cac4579bff8845e57245d9f8e
 
 ls -lh
 wandb login $WANDB_API_KEY
-# deepspeed --master_port 60000 train_rdpo.py \
-#     --model_name_or_path liuhaotian/llava-v1.6-vicuna-7b \
-#     --data_path "./preference_data/pref_data.json" \
-#     --deepspeed "./deepspeed/zero2.json" \
-#     --per_device_train_batch_size 1 \
-#     --per_device_eval_batch_size 1 \
-#     --gradient_accumulation_steps 8 \
-#     --save_strategy "epoch" \
-#     --save_total_limit 1 \
-#     --learning_rate 1e-6 \
-#     --weight_decay 0. \
-#     --warmup_ratio 0.03 \
-#     --lr_scheduler_type "cosine" \
-#     --bf16 True \
-#     --lora_enable True \
-#     --beta 0.1 \
-#     --output_dir "./output/llava-vicuna-7b-rdpo-lora-1e-6-beta-0.1" \
+deepspeed --master_port 60000 train_rdpo.py \
+    --model_name_or_path liuhaotian/llava-v1.6-vicuna-7b \
+    --data_path "./preference_data/pref_data.json" \
+    --deepspeed "./deepspeed/zero2.json" \
+    --per_device_train_batch_size 1 \
+    --per_device_eval_batch_size 1 \
+    --gradient_accumulation_steps 8 \
+    --save_strategy "epoch" \
+    --save_total_limit 1 \
+    --learning_rate 1e-6 \
+    --weight_decay 0. \
+    --warmup_ratio 0.03 \
+    --lr_scheduler_type "cosine" \
+    --bf16 True \
+    --lora_enable True \
+    --beta 0.1 \
+    --output_dir "./output/llava-vicuna-7b-rdpo-lora-1e-6-beta-0.1" \
 
 
 echo "Done!!!"
