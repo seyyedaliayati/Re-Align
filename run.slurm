@@ -35,6 +35,7 @@ export WANDB_CACHE_DIR=/scratch/user/ali.a/wandb
 export WANDB_CONFIG_DIR=/scratch/user/ali.a/wandb
 export WANDB_SETTINGS_DIR=/scratch/user/ali.a/wandb
 export WANDB_MODE=offline
+export HF_HUB_OFFLINE=1
 
 
 ls -lh
