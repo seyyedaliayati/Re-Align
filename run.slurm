@@ -40,7 +40,7 @@ export HF_HUB_OFFLINE=1
 
 ls -lh
 deepspeed --master_port 60000 train_rdpo.py \
-    --model_name_or_path /scratch/user/ali.a/hf_cache/liuhaotian/llava-v1.6-vicuna-7b \
+    --model_name_or_path liuhaotian/llava-v1.6-vicuna-7b \
     --data_path "./preference_data/pref_data.json" \
     --deepspeed "./deepspeed/zero2.json" \
     --per_device_train_batch_size 1 \
