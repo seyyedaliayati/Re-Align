@@ -25,14 +25,16 @@ mkdir -p /scratch/user/ali.a/wandb
 
 export HOME=/scratch/user/ali.a
 export TRITON_CACHE_DIR=/scratch/user/ali.a/triton_cache
+
 export TRANSFORMERS_CACHE=/scratch/user/ali.a/hf_cache
 export HF_HOME=/scratch/user/ali.a/hf_home
 export HF_DATASETS_CACHE=/scratch/user/ali.a/hf_datasets
+
 export WANDB_DIR=/scratch/user/ali.a/wandb
 export WANDB_CACHE_DIR=/scratch/user/ali.a/wandb
 export WANDB_CONFIG_DIR=/scratch/user/ali.a/wandb
 export WANDB_SETTINGS_DIR=/scratch/user/ali.a/wandb
-export WANDB_API_KEY=f5115de6923afe0cac4579bff8845e57245d9f8e
+export WANDB_MODE=offline
 
 
 ls -lh

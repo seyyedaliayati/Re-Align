@@ -38,10 +38,9 @@ import numpy as np
 from PIL import ImageFilter
 import wandb
 
-WANDB_API_KEY = os.getenv("WANDB_API_KEY")
-assert WANDB_API_KEY is not None, "Please set WANDB_API_KEY in your environment variables."
-
-wandb.login(key=WANDB_API_KEY)
+# WANDB_API_KEY = os.getenv("WANDB_API_KEY")
+# assert WANDB_API_KEY is not None, "Please set WANDB_API_KEY in your environment variables."
+# wandb.login(key=WANDB_API_KEY)
 local_rank = None
 
 import os

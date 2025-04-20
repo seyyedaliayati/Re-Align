@@ -38,11 +38,9 @@ from llava.mm_utils import tokenizer_image_token
 from PIL import Image
 import wandb
 
-WANDB_API_KEY = os.getenv("WANDB_API_KEY")
-assert WANDB_API_KEY is not None, "Please set WANDB_API_KEY in your environment variables."
-
-
-wandb.login(key=WANDB_API_KEY)
+# WANDB_API_KEY = os.getenv("WANDB_API_KEY")
+# assert WANDB_API_KEY is not None, "Please set WANDB_API_KEY in your environment variables."
+# wandb.login(key=WANDB_API_KEY)
 
 
 local_rank = None
