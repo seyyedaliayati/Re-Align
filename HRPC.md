@@ -1,5 +1,4 @@
 If you are using the HRPC cluster, please follow these instructions to set up your environment.
-
 ```bash
 conda create -n re-align python=3.10 -y
 conda activate re-align
@@ -16,3 +15,12 @@ mkdir -p tmp
 TMPDIR=$PWD/tmp pip install . --no-build-isolation
 pip install trl
 ```
+
+
+Download the models:
+```bash
+huggingface-cli login
+huggingface-cli download liuhaotian/llava-v1.6-vicuna-7b 
+huggingface-cli download liuhaotian/llava-v1.6-vicuna-7b --local-dir $SCRATCH/hf_cache/liuhaotian/llava-v1.6-vicuna-7b --local-dir-use-symlinks False
+```
+
