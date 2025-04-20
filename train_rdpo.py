@@ -849,6 +849,7 @@ def train():
             device_map={"": training_args.device},
             use_safetensors=True,        # <<< ADD THIS
             local_files_only=True,        # <<< ADD THIS
+            trust_remote_code=True,       # <<< ADD THIS
             load_in_4bit=training_args.bits == 4,
             load_in_8bit=training_args.bits == 8,
             quantization_config=BitsAndBytesConfig(
