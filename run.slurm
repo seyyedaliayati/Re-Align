@@ -26,7 +26,6 @@ mkdir -p /scratch/user/ali.a/wandb
 export HOME=/scratch/user/ali.a
 export TRITON_CACHE_DIR=/scratch/user/ali.a/triton_cache
 
-export TRANSFORMERS_CACHE=/scratch/user/ali.a/hf_cache
 export HF_HOME=/scratch/user/ali.a/hf_home
 export HF_DATASETS_CACHE=/scratch/user/ali.a/hf_datasets
 
