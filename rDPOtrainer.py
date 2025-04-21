@@ -6,6 +6,10 @@ import torch.nn as nn
 
 
 class rDPOTrainer(DPOTrainer):
+    def __init__(self, *args, sft_weight: float = 0.0, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.sft_weight = sft_weight
+
     def concatenated_inputs(self, batch: Dict[str, Union[List, torch.LongTensor]]) -> Dict[str, torch.LongTensor]:
         concatenated_batch = {}
 

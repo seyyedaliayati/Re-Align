@@ -58,6 +58,7 @@ deepspeed --include=localhost:0,1 --master_port 60000 train_rdpo.py \
     --beta 0.1 \
     --output_dir "./output/llava-vicuna-7b-rdpo-lora-1e-6-beta-0.1" \
     --cache_dir "$HF_HOME/hub" \
+    --sft_weight 0.05 \
 
 
 echo "Done!!!"
