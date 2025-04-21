@@ -9,6 +9,7 @@
 #SBATCH --output=logs/%j.log
 
 ml purge
+ml CUDA/12.1.1
 ml GCCcore/13.3.0
 ml Miniconda3/23.10.0-1
 source /sw/eb/sw/Miniconda3/23.10.0-1/etc/profile.d/conda.sh
@@ -29,6 +30,7 @@ export TRITON_CACHE_DIR=/scratch/user/ali.a/triton_cache
 export HF_HOME=/scratch/user/ali.a/hf_home
 export HF_DATASETS_CACHE=/scratch/user/ali.a/hf_datasets
 export HF_HUB_OFFLINE=1
+export HF_DEBUG=1
 
 export WANDB_DIR=/scratch/user/ali.a/wandb
 export WANDB_CACHE_DIR=/scratch/user/ali.a/wandb
@@ -55,7 +57,7 @@ deepspeed --master_port 60000 train_rdpo.py \
     --lora_enable True \
     --beta 0.1 \
     --output_dir "./output/llava-vicuna-7b-rdpo-lora-1e-6-beta-0.1" \
-    --cache_dir "$HF_HOME" \
+    --cache_dir "$HF_HOME/hub" \
 
 
 echo "Done!!!"
