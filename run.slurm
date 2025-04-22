@@ -40,7 +40,7 @@ export WANDB_MODE=offline
 
 
 ls -lh
-deepspeed --include=localhost:0,1 --master_port 60000 train_rdpo.py \
+deepspeed --master_port 60000 train_rdpo.py \
     --model_name_or_path liuhaotian/llava-v1.6-vicuna-7b \
     --data_path "./preference_data/pref_data.json" \
     --deepspeed "./deepspeed/zero2.json" \
@@ -58,7 +58,7 @@ deepspeed --include=localhost:0,1 --master_port 60000 train_rdpo.py \
     --beta 0.1 \
     --output_dir "./output/llava-vicuna-7b-rdpo-lora-1e-6-beta-0.1" \
     --cache_dir "$HF_HOME/hub" \
-    --sft_weight 0.05 \
+    --sft_weight 0.1 \
 
 
 echo "Done!!!"
