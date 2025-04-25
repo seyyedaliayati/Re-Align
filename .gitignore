@@ -1,1 +1,5 @@
 logs/
+venv/
+dataset/
+__pycache__/
+*.pyc
