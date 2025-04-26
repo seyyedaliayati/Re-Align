@@ -12,7 +12,7 @@ class rDPOTrainer(DPOTrainer):
         self.gamma_beta_ratio = gamma_beta_ratio
         self.alpha = alpha
         self.loss = loss
-        
+
     def concatenated_inputs(self, batch: Dict[str, Union[List, torch.LongTensor]]) -> Dict[str, torch.LongTensor]:
         concatenated_batch = {}
 
