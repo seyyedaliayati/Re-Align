@@ -41,5 +41,5 @@ deepspeed --include=localhost:0,1,2,3 --master_port 60000 train_rdpo.py \
     --bf16 True \
     --lora_enable True \
     --beta $beta \
-    --loss "rdpo" \
+    --loss "dpo" \
     --output_dir "./output/llava-vicuna-7b-rdpo-lora-$lr-beta-$beta" \
