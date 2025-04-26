@@ -116,6 +116,9 @@ class DataArguments:
 @dataclass
 class TrainingArguments(transformers.TrainingArguments):
     sft_weight: float = field(default=0.0, metadata={"help": "Weight for SFT loss."})
+    gamma_beta_ratio: float = field(default=0.4, metadata={"help": "simpo recommand gamma 0.5-1.5, beta 2.0-2.5"})
+    alpha: Optional[float] = field(default=1.0)
+    loss: str = field(default="dpo")
     cache_dir: Optional[str] = field(default=None)
     optim: str = field(default="adamw_torch")
     remove_unused_columns: bool = field(default=False)

@@ -6,9 +6,12 @@ import torch.nn as nn
 
 
 class rDPOTrainer(DPOTrainer):
-    def __init__(self, *args, sft_weight: float = 0.0, **kwargs):
+    def __init__(self, *args, sft_weight=0.0, gamma_beta_ratio=0.0, alpha=1.0, loss='simpo', **kwargs):
         super().__init__(*args, **kwargs)
         self.sft_weight = sft_weight
+        self.gamma_beta_ratio = gamma_beta_ratio
+        self.alpha = alpha
+        self.loss = loss
 
     def concatenated_inputs(self, batch: Dict[str, Union[List, torch.LongTensor]]) -> Dict[str, torch.LongTensor]:
         concatenated_batch = {}
@@ -107,7 +110,13 @@ class rDPOTrainer(DPOTrainer):
         #     attention_mask=batch["chosen_attention_mask"],
         #     **imageless_model_kwargs,
         # )
-
+        if self.loss == 'simpo':
+            is_average = True
+        elif self.loss == 'dpo':
+            is_average = False
+        else:
+            raise NotImplementedError(f'Unknown loss type: {self.loss}')
+        
         chosen_logits = model(
             input_ids = chosen_batch,
             labels = chosen_label,
@@ -128,7 +137,7 @@ class rDPOTrainer(DPOTrainer):
         chosen_logps = self._get_batch_logps(
             chosen_logits,
             new_chosen_labels,
-            average_log_prob=False,
+            average_log_prob=is_average,
         )
 
         rejected_logits = model(
@@ -152,7 +161,7 @@ class rDPOTrainer(DPOTrainer):
             rejected_logits,
             rejected_logits,
             new_rejected_labels,
-            average_log_prob=False,
+            average_log_prob=is_average,
         )
 
 
@@ -196,7 +205,7 @@ class rDPOTrainer(DPOTrainer):
             imageless_chosen_logits,
             imageless_chosen_logits,
             new_imageless_chosen_labels,
-            average_log_prob=False,
+            average_log_prob=is_average,
         )
 
         return (chosen_logps, rejected_logps, imageless_chosen_logps, chosen_logits, rejected_logits, imageless_chosen_logits)
@@ -253,6 +262,33 @@ class rDPOTrainer(DPOTrainer):
 
         return losses, chosen_rewards, rejected_rewards, imageless_rewards, kl
 
+    '''rSimPO = SimPO + alpha * vSimPO '''
+    def simpo_loss(
+        self,
+        policy_chosen_logps: torch.FloatTensor,
+        policy_rejected_logps: torch.FloatTensor,
+        policy_imageless_chosen_logps: torch.FloatTensor,
+    ):  
+        ## TODO these logps should be averaged, set bool True in forward 
+        
+        pi_logratios = policy_chosen_logps - policy_rejected_logps
+        logits = pi_logratios - self.gamma_beta_ratio ## TODO set gamma_beta_ratio, check what is it
+        imageless_pi_logratios = policy_chosen_logps - policy_imageless_chosen_logps
+        image_conditional_logits = imageless_pi_logratios - self.gamma_beta_ratio ## set imageless_gamma_beta_ratio
+        
+        losses =  -torch.nn.functional.logsigmoid(self.beta * logits) \
+            -self.alpha * torch.nn.functional.logsigmoid(self.beta * image_conditional_logits) ## TODO set alpha as a hyperparameter
+            
+        chosen_rewards = self.beta * policy_chosen_logps.detach()
+        rejected_rewards = self.beta * policy_rejected_logps.detach()
+        imageless_rewards = self.beta * policy_imageless_chosen_logps.detach()
+
+        kl = torch.zeros_like(chosen_rewards) 
+
+        return losses, chosen_rewards, rejected_rewards, imageless_rewards, kl
+
+        
+        
     def get_batch_metrics(
         self,
         model,
@@ -289,16 +325,26 @@ class rDPOTrainer(DPOTrainer):
                     _,
                     _,
                 ) = self.concatenated_forward(self.ref_model, batch)
-
-        losses, chosen_rewards, rejected_rewards, imageless_rewards, kl = self.dpo_loss(
-            policy_chosen_logps,
-            policy_rejected_logps,
-            policy_imageless_chosen_logps,
-            reference_chosen_logps,
-            reference_rejected_logps,
-            reference_imageless_chosen_logps,
-        )
-        reward_accuracies = (chosen_rewards > rejected_rewards).float()
+                
+        if self.loss == 'dpo':
+            losses, chosen_rewards, rejected_rewards, imageless_rewards, kl = self.dpo_loss(
+                policy_chosen_logps,
+                policy_rejected_logps,
+                policy_imageless_chosen_logps,
+                reference_chosen_logps,
+                reference_rejected_logps,
+                reference_imageless_chosen_logps,
+            )
+        elif self.loss == 'simpo':
+            losses, chosen_rewards, rejected_rewards, imageless_rewards, kl = self.simpo_loss(
+                policy_chosen_logps,
+                policy_rejected_logps,
+                policy_imageless_chosen_logps,
+            )
+        else:
+            raise NotImplementedError(f"Unknown loss type:{self.loss}")
+        
+        reward_accuracies = (chosen_rewards > rejected_rewards).float() ## for simpo it is consistency
         imageless_reward_accuracies = (chosen_rewards > imageless_rewards).float()
 
         loss = losses.mean()
@@ -307,7 +353,7 @@ class rDPOTrainer(DPOTrainer):
 
         prefix = "eval_" if train_eval == "eval" else ""
 
-        if self.sft_weight > 0.0:
+        if self.sft_weight > 0.0: #TODO sft_weight can decay over time
             if not self.is_encoder_decoder:
                 policy_chosen_logits = policy_chosen_logits[..., :-1, :].contiguous()
                 chosen_labels = chosen_labels[..., 1:].clone()
