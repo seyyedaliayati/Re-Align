@@ -19,6 +19,7 @@ export WANDB_MODE=offline
 export CUDA_VISIBLE_DEVICES=0
 
 # SicenceQA Base
+echo "ScienceQA Base..."
 python -m llava.eval.model_vqa_science \
     --model-path liuhaotian/llava-v1.6-vicuna-7b \
     --question-file ./playground/data/eval/scienceqa/llava_test_CQM-A.json \
@@ -35,6 +36,7 @@ python llava/eval/eval_science_qa.py \
     --output-result ./playground/data/eval/scienceqa/answers/base_result.json
 
 # ScienceQA rDPO
+echo "ScienceQA rDPO..."
 python -m llava.eval.model_vqa_science \
     --model-path /scratch/user/ali.a/Re-Align/output/llava-vicuna-7b-rdpo-lora-1e-6-beta-0.1 \
     --model-base liuhaotian/llava-v1.6-vicuna-7b \
@@ -52,6 +54,7 @@ python llava/eval/eval_science_qa.py \
     --output-result ./playground/data/eval/scienceqa/answers/rdpo_result.json
 
 # ScienceQA SimPO
+echo "ScienceQA SimPO..."
 python -m llava.eval.model_vqa_science \
     --model-path /scratch/user/ali.a/Re-Align/output/llava-vicuna-13b-rsimpo-lora-1e-6-beta-0.1-new-qkvo \
     --model-base liuhaotian/llava-v1.6-vicuna-7b \
@@ -70,6 +73,7 @@ python llava/eval/eval_science_qa.py \
 # -----------------------------------------------------------------------------------------
 
 # TextVQA Base
+echo "TextVQA Base..."
 python -m llava.eval.model_vqa_loader \
     --model-path liuhaotian/llava-v1.6-vicuna-7b \
     --question-file ./playground/data/eval/textvqa/llava_textvqa_val_v051_ocr.jsonl \
@@ -83,6 +87,7 @@ python -m llava.eval.eval_textvqa \
     --result-file ./playground/data/eval/textvqa/answers/base.jsonl
 
 # TextVQA rDPO
+echo "TextVQA rDPO..."
 python -m llava.eval.model_vqa_loader \
     --model-path /scratch/user/ali.a/Re-Align/output/llava-vicuna-7b-rdpo-lora-1e-6-beta-0.1 \
     --model-base liuhaotian/llava-v1.6-vicuna-7b \
@@ -97,6 +102,7 @@ python -m llava.eval.eval_textvqa \
     --result-file ./playground/data/eval/textvqa/answers/rdpo.jsonl
 
 # TextVQA SimPO
+echo "TextVQA SimPO..."
 python -m llava.eval.model_vqa_loader \
     --model-path /scratch/user/ali.a/Re-Align/output/llava-vicuna-13b-rsimpo-lora-1e-6-beta-0.1-new-qkvo \
     --model-base liuhaotian/llava-v1.6-vicuna-7b \
