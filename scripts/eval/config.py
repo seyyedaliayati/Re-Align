@@ -27,8 +27,8 @@ print("Environment setup complete.")
 MODELS_DIR = "./output"
 DPO_NO_SFT = "llava-vicuna-7b-rdpo-lora-1e-6-beta-0.1-nosft"
 DPO_SFT = "llava-vicuna-7b-rdpo-lora-1e-6-beta-0.1-sft"
-SIMPO_NO_SFT = "" # TODO
-SIMPO_SFT = "llava-vicuna-7b-rsimpo-lora-1e-6-beta-0.1-sft"
+SIMPO_NO_SFT = "llava-vicuna-7b-rsimpo-lora-1e-6-beta-0.1-nosft"
+SIMPO_SFT = "" # TODO
 
 BASE_MODEL = "liuhaotian/llava-v1.6-vicuna-7b"
 
@@ -36,6 +36,6 @@ MODELS = {
     "base": BASE_MODEL,
     "dpo_nosft": os.path.join(MODELS_DIR, DPO_NO_SFT),
     "dpo_sft": os.path.join(MODELS_DIR, DPO_SFT),
-    # "simpo_nosft": os.path.join(MODELS_DIR, SIMPO_NO_SFT),
-    "simpo_sft": os.path.join(MODELS_DIR, SIMPO_SFT),
+    "simpo_nosft": os.path.join(MODELS_DIR, SIMPO_NO_SFT),
+    # "simpo_sft": os.path.join(MODELS_DIR, SIMPO_SFT),
 }
