@@ -24,3 +24,5 @@ export WANDB_SETTINGS_DIR=/scratch/user/ali.a/wandb
 export WANDB_MODE=offline
 
 export CUDA_VISIBLE_DEVICES=0
+
+python scripts/eval/sqa.py
