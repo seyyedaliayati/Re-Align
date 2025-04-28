@@ -25,4 +25,5 @@ export WANDB_MODE=offline
 
 export CUDA_VISIBLE_DEVICES=0
 
-python scripts/eval/sqa.py > logs/sqa.log 2>&1
+echo "Running SQA Evaluation"
+python scripts/eval/sqa.py
