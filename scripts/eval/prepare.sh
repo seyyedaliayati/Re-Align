@@ -4,6 +4,10 @@
 ml purge
 ml Anaconda3/2021.11
 cd $SCRATCH/Re-Align
+source venv/bin/activate
+python -V
+pwd
+
 
 export HOME=/scratch/user/ali.a
 export TRITON_CACHE_DIR=/scratch/user/ali.a/triton_cache
