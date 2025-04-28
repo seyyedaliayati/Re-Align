@@ -9,6 +9,11 @@ subprocess.run('ml purge', shell=True, check=True)
 subprocess.run('ml Anaconda3/2021.11', shell=True, check=True)
 os.chdir('$SCRATCH/Re-Align')
 
+# Print Python Version
+subprocess.run('python --version', shell=True, check=True)
+# Print PWD
+subprocess.run('pwd', shell=True, check=True)
+
 # Exporting environment variables
 os.environ['HOME'] = '/scratch/user/ali.a'
 os.environ['TRITON_CACHE_DIR'] = '/scratch/user/ali.a/triton_cache'
