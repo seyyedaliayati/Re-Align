@@ -4,32 +4,23 @@ import os
 # Environment setup
 print("Setting up environment...")
 
-# HPRC environment setup
-subprocess.run('ml purge', shell=True, check=True)
-subprocess.run('ml Anaconda3/2021.11', shell=True, check=True)
-os.chdir('$SCRATCH/Re-Align')
-
 # Print Python Version
 subprocess.run('python --version', shell=True, check=True)
 # Print PWD
 subprocess.run('pwd', shell=True, check=True)
 
-# Exporting environment variables
-os.environ['HOME'] = '/scratch/user/ali.a'
-os.environ['TRITON_CACHE_DIR'] = '/scratch/user/ali.a/triton_cache'
-os.environ['HF_HOME'] = '/scratch/user/ali.a/hf_home'
-os.environ['HF_DATASETS_CACHE'] = '/scratch/user/ali.a/hf_datasets'
-os.environ['HF_HUB_OFFLINE'] = '1'
-os.environ['HF_DEBUG'] = '1'
-
-os.environ['WANDB_DIR'] = '/scratch/user/ali.a/wandb'
-os.environ['WANDB_CACHE_DIR'] = '/scratch/user/ali.a/wandb'
-os.environ['WANDB_CONFIG_DIR'] = '/scratch/user/ali.a/wandb'
-os.environ['WANDB_SETTINGS_DIR'] = '/scratch/user/ali.a/wandb'
-os.environ['WANDB_MODE'] = 'offline'
-
-# GPUs setup
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+assert os.environ.get('HOME') == '/scratch/user/ali.a', f"HOME is not set correctly: {os.environ.get('HOME')}"
+assert os.environ.get('TRITON_CACHE_DIR') == '/scratch/user/ali.a/triton_cache', f"TRITON_CACHE_DIR is not set correctly: {os.environ.get('TRITON_CACHE_DIR')}"
+assert os.environ.get('HF_HOME') == '/scratch/user/ali.a/hf_home', f"HF_HOME is not set correctly: {os.environ.get('HF_HOME')}"
+assert os.environ.get('HF_DATASETS_CACHE') == '/scratch/user/ali.a/hf_datasets', f"HF_DATASETS_CACHE is not set correctly: {os.environ.get('HF_DATASETS_CACHE')}"
+assert os.environ.get('HF_HUB_OFFLINE') == '1', f"HF_HUB_OFFLINE is not set correctly: {os.environ.get('HF_HUB_OFFLINE')}"
+assert os.environ.get('HF_DEBUG') == '1', f"HF_DEBUG is not set correctly: {os.environ.get('HF_DEBUG')}"
+assert os.environ.get('WANDB_DIR') == '/scratch/user/ali.a/wandb', f"WANDB_DIR is not set correctly: {os.environ.get('WANDB_DIR')}"
+assert os.environ.get('WANDB_CACHE_DIR') == '/scratch/user/ali.a/wandb', f"WANDB_CACHE_DIR is not set correctly: {os.environ.get('WANDB_CACHE_DIR')}"
+assert os.environ.get('WANDB_CONFIG_DIR') == '/scratch/user/ali.a/wandb', f"WANDB_CONFIG_DIR is not set correctly: {os.environ.get('WANDB_CONFIG_DIR')}"
+assert os.environ.get('WANDB_SETTINGS_DIR') == '/scratch/user/ali.a/wandb', f"WANDB_SETTINGS_DIR is not set correctly: {os.environ.get('WANDB_SETTINGS_DIR')}"
+assert os.environ.get('WANDB_MODE') == 'offline', f"WANDB_MODE is not set correctly: {os.environ.get('WANDB_MODE')}"
+assert os.environ.get('CUDA_VISIBLE_DEVICES') == '0', f"CUDA_VISIBLE_DEVICES is not set correctly: {os.environ.get('CUDA_VISIBLE_DEVICES')}"
 
 print("Environment setup complete.")
 
