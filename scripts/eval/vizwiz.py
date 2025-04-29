@@ -39,7 +39,7 @@ for model_name, model_path in MODELS.items():
         "--result-upload-file", upload_file
     ]
     subprocess.run(cmd, check=True)
-
+    print(f"TODO: Upload {upload_file} to the evaluation server.")
     print(f"Finished VizWiz for model: {model_name}.\n")
 
 print("VizWiz evaluation complete for all models.")

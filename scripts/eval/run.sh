@@ -37,6 +37,10 @@ export CUDA_VISIBLE_DEVICES=0
 # python scripts/eval/mm_vet.py > ./logs/mm_vet.log 2>&1
 # echo "Finished MM-Vet Evaluation"
 
-echo "Running VizWiz Evaluation"
-python scripts/eval/vizwiz.py > ./logs/vizwiz.log 2>&1
-echo "Finished VizWiz Evaluation"
+# echo "Running VizWiz Evaluation"
+# python scripts/eval/vizwiz.py > ./logs/vizwiz.log 2>&1
+# echo "Finished VizWiz Evaluation"
+
+echo "Running LLaVA-Bench Evaluation"
+python scripts/eval/llavabench.py > ./logs/llavabench.log 2>&1
+echo "Finished LLaVA-Bench Evaluation"
