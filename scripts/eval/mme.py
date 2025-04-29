@@ -37,7 +37,7 @@ for model_name, model_path in MODELS.items():
     # Run evaluation tool
     cmd = [
         "python", "calculation.py",
-        "--results_dir", os.path.join(answers_dir, "base")
+        "--results_dir", os.path.join(answers_dir, model_name)
     ]
     print("Running evaluation command:", " ".join(cmd))
     subprocess.run(cmd, check=True, cwd=os.path.join(mme_dir, "eval_tool"))
