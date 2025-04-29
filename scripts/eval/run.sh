@@ -44,3 +44,15 @@ export CUDA_VISIBLE_DEVICES=0
 echo "Running LLaVA-Bench Evaluation"
 python scripts/eval/llavabench.py > ./logs/llavabench.log 2>&1
 echo "Finished LLaVA-Bench Evaluation"
+
+echo "Running MMBench Evaluation"
+python scripts/eval/mmbench.py > ./logs/mmbench.log 2>&1
+echo "Finished MMBench Evaluation"
+
+echo "Running MME Evaluation"
+python scripts/eval/mme.py > ./logs/mme.log 2>&1
+echo "Finished MME Evaluation"
+
+echo "Running POPE Evaluation"
+python scripts/eval/pope.py > ./logs/pope.log 2>&1
+echo "Finished POPE Evaluation"
