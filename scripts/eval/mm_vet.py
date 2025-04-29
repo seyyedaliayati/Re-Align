@@ -6,6 +6,7 @@ question_file = './playground/data/eval/mm-vet/llava-mm-vet.jsonl'
 image_folder = './playground/data/eval/mm-vet/images'
 answers_dir = './playground/data/eval/mm-vet/answers'
 results_dir = './playground/data/eval/mm-vet/results'
+# --> Evaluate the predictions in results_dir using the official jupyter notebook.
 
 # Ensure the results directory exists
 os.makedirs(results_dir, exist_ok=True)
